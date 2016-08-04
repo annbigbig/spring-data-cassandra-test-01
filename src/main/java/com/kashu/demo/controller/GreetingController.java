@@ -21,11 +21,20 @@ public class GreetingController {
 	    }
 	    @RequestMapping(value = "/greeting/{user}/",method = RequestMethod.GET)
 	    @ResponseBody
+	    public List<Greeting> greetingUserLimit(@PathVariable String user) {
+	        List<Greeting> greetings = new ArrayList<>();
+	        greetRepository.findByUser(user,1).forEach(e -> greetings.add(e));
+	        return greetings;
+	    }
+	    /*
 	    public List<Greeting> greetingUserLimit(@PathVariable String user,Integer limit) {
 	        List<Greeting> greetings = new ArrayList<>();
 	        greetRepository.findByUser(user,limit).forEach(e -> greetings.add(e));
 	        return greetings;
 	    }
+	    */
+	    
+	    
 	    @RequestMapping(value = "/greeting",method = RequestMethod.POST)
 	    @ResponseBody
 	    public String saveGreeting(@RequestBody Greeting greeting) {
