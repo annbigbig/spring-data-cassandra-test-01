@@ -16,14 +16,16 @@ public class GreetingController {
 	    @ResponseBody
 	    public List<Greeting> greeting() {
 	        List<Greeting> greetings = new ArrayList<>();
-	        greetRepository.findAll().forEach(e->greetings.add(e));
+	        greetRepository.findAll().forEach(e->greetings.add(e)); 
 	        return greetings;
 	    }
-	    @RequestMapping(value = "/greeting/{user}/",method = RequestMethod.GET)
+	    @RequestMapping(value = "/greeting/{user}",method = RequestMethod.GET)
 	    @ResponseBody
-	    public List<Greeting> greetingUserLimit(@PathVariable String user) {
+	    public List<Greeting> greetingUserLimit(
+	    		@PathVariable String user,
+	    		@RequestParam(value="limit",required = false, defaultValue = "5") Integer limit) {
 	        List<Greeting> greetings = new ArrayList<>();
-	        greetRepository.findByUser(user,1).forEach(e -> greetings.add(e));
+	        greetRepository.findByUser(user,limit).forEach(e -> greetings.add(e));
 	        return greetings;
 	    }
 	    /*
